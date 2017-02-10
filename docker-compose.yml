@@ -23,10 +23,13 @@ services:
     build: .
     ports:
       - '3000:3000'
+# volumesでカレントを指定しないと、rails gなどしても、hostに反映されない
+    volumes:
+      - .:/myapp
+    volumes_from:
+      - datastore
     environment:
       RAILS_ENV: development
       MYSQL_ROOT_PASSWORD: password
-    volumes_from:
-      - datastore
     depends_on:
       - db
